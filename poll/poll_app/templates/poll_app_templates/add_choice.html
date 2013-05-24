@@ -1,0 +1,22 @@
+{% extends "poll_app_templates/base.html" %}
+{% block head %}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        content='Choice:<input type="text" name="choice"></br>'
+        console.log(content);
+        $("#add").click(function(){
+            $("#container").append(content);
+        });
+    });
+    </script>
+{% endblock %}
+{% block body %}
+<button id="add">Add more choice</button>
+<form method="POST" action="{% url add_choice poll_id=poll.id %}">
+{% csrf_token %}
+Choice:<input type="text" name="choice"></br>
+<div id="container"></div>
+<input type="submit" value="Save"/>
+</form>
+{% endblock %}

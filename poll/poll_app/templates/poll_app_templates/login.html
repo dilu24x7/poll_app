@@ -1,0 +1,9 @@
+{% extends "poll_app_templates/base.html" %}
+{% block body %}
+    <form method="POST" action="{% url login %}">
+    {% csrf_token %}
+    username: <input type="text" name="username"/>
+    password: <input type="password" name="password"/>
+    <input type="submit" value="login"/>
+    </form>
+{% endblock %}

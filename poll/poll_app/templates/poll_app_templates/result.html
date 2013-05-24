@@ -1,0 +1,22 @@
+{% extends "poll_app_templates/base.html" %}
+{% block head %}
+<style>
+    table,td
+    {
+        border: 1px solid black;
+    }
+</style>
+{% endblock %}
+{% block body %}
+Result<br/>
+<a href="/">Home</a></br>
+Question: {{poll.poll_question}}
+<table>
+<tr><td>Choice</td><td>Vote</td></tr>
+{% for choice in choices %}
+<tr>
+<td>{{choice.poll_choice}}</td>
+<td>{{choice.votes}}</td>
+</tr>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "poll_app_templates/base.html" %}
+{% block body %}
+{% if user.is_anonymous %}
+    <a href="{% url login %}">Login</a>
+{% else %}
+    Welcome {{user}},<a href="{% url logout %}">Logout</a></br>
+    <a href="{% url add_poll %}">Add_poll</a>
+{% endif %}
+<table>
+<tr>
+<td>#</td><td>Topic</td><td>Option</td>
+</tr>
+{% for poll_entry in poll_entries %}
+    <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{poll_entry.poll_question}}</td>
+    <td>
+    <a href="{% url view_poll poll_id=poll_entry.id %}">View</a>
+    {% if user == poll_entry.poll_creator %}
+        <a href="{% url delete_poll poll_id=poll_entry.id %}">Delete</a>
+    {% endif %}
+    </td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

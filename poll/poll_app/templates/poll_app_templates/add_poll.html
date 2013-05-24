@@ -1,0 +1,10 @@
+{% extends "poll_app_templates/base.html" %}
+{% block body %}
+    <a href="/">Home</a></br>
+    <form method="POST" action={% url add_poll %}>
+    {% csrf_token %}
+    Poll question:<input type="text" name="poll_question"></br>
+    Poll type :</br><input type="radio" name="poll_type" value="1"/>Multiple poll</br>
+    <input type="radio" name="poll_type" value="0"/>Single poll</br>
+    <input type="submit" value="next">
+{% endblock %}

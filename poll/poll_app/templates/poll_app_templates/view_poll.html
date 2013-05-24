@@ -1,0 +1,30 @@
+{% extends "poll_app_templates/base.html" %}
+{% block body %}
+<a href="/">Home</a></br>
+Question: {{poll.poll_question}}
+{% if poll.poll_type %}
+    <form method="POST" action={% url vote%}>
+        {% csrf_token %}
+        {% for choice in choices %}
+            <input type="checkbox" name="vote" value="{{choice.id}}"/>{{choice.poll_choice}}</br>
+        {% endfor %}
+        {% if user.is_anonymous %}
+            <a href="{% url login %}">login to vote</a>
+        {% else %}
+            <input type="submit" value="vote"/>
+        {% endif %}
+    </form>
+{% else %}
+    <form method="POST" action={% url vote %}>
+        {% csrf_token %}
+        {% for choice in choices %}
+            <input type="radio" name="vote" value="{{choice.id}}"/>{{choice.poll_choice}}</br>
+        {% endfor %}
+        {% if user.is_anonymous %}
+            <a href="{% url login %}">login to vote</a>
+        {% else %}
+            <input type="submit" value="vote"/>
+        {% endif %}
+    </form>
+{% endif %}
+{% endblock %}
