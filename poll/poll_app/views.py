@@ -8,10 +8,12 @@ import datetime
 # Create your views here.
 
 def home(request):
+    # home page view
     poll_entries = Poll.objects.order_by('poll_pub_date')
     return direct_to_template(request,'poll_app_templates/home.html',{'poll_entries':poll_entries})
 
 def login_view(request):
+    # login view
     if request.method == "GET":
         return direct_to_template(request,'poll_app_templates/login.html',{})
     user = authenticate(username = request.POST['username'], password = request.POST['password'])
@@ -22,6 +24,7 @@ def login_view(request):
     return HttpResponseRedirect(reverse('home'))
 
 def logout_view(request):
+    # logout view
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
@@ -63,6 +66,7 @@ def vote(request):
    choices = Choice.objects.filter(poll=choice.poll)
    return direct_to_template(request,'poll_app_templates/result.html',{'poll':choice.poll,'choices':choices})
 
+@login_required
 def delete_poll(request,poll_id):
     Choice.objects.filter(poll=poll_id).delete()
     Poll.objects.filter(id=poll_id).delete()

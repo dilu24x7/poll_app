@@ -1,7 +1,8 @@
 {% extends "poll_app_templates/base.html" %}
 {% block body %}
 <a href="/">Home</a></br>
-Question: {{poll.poll_question}}
+Question: {{poll.poll_question}} Published on: {{poll.poll_pub_date}}<br/>
+Your choices are:
 {% if poll.poll_type %}
     <form method="POST" action={% url vote%}>
         {% csrf_token %}
