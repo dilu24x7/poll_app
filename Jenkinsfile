@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('simple start') {
+    stage('VM creation') {
       steps {
-        echo 'process started'
+        sh '''echo 'triggering vm creation script'
+python vm_creation.py
+'''
       }
     }
   }
